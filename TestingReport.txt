@@ -1,0 +1,60 @@
+Mauro NuneZ
+Final Project - Testing Report
+CSDS 132 - Programming in Java
+
+Junit Tests (WegeGameTest.java)
+
+    Method: isBoardFull()
+        - Test 0 (empty): Empty board returns false
+        - Test 1 (one card): Board with one card returns false
+        - Test many (full): Fully filled 2x2 board returns true
+
+    Method: drawCard()
+        - Test first: Drawing from a non-empty deck return a non-null card
+        - Test last: Drawing from an epty deck returns null
+        - Test many: Drawing all cards causes next draw to return null
+
+    Method: switchTurn() / isLandPlayerTurn()
+        - Test initial: Game starts as land player's turn
+        - Test once: After one switch, water player's turn
+        - Test twice: After two switches, land player's turn again
+    
+    Method: placeCard() / getCardAt()
+        - Test place: Placing a card at a position stores it correctly
+        - Test empty: Getting a card from an empty cell return null
+
+    Method: isLegalMove()
+        - Test first card: First card can be played anywhere on the empty board
+        - Test occupied: Cannot place a card on an occupied cell
+        - Test non adjacent: Cannot place a card on a non-adjacent cell
+        - Test mismatch: Two water cards can be placed to the right of a water card
+        - Test right: Land card can be placed to the right of a water card
+        - Test above: Land card can be placed above a water card
+        - Test below: Land card can be placed below a water card
+        - Test left: Land card can be placed to the left of a water card
+
+Manual Tests:
+
+    Next Card Button:
+        - Clicking the next card button when empty draws and displays a card from the deck
+        - Clicking when displaying a card rotates it 90 degrees clockwise
+        - Clicking when the deck is empty does nothing
+
+    Board Buttons: 
+        - Clicking when next card button is empty does nothing
+        - Clicking with a card ready places it, that is, if the move is isLegalMove
+        - Clicking with a card ready does nothing if the move is not legal 
+        - Status label updates to next player's turn each time a legal move is completed
+        - Clicking a land or water card on the board with a bridge card ready swaps the bridge onto the board and returns
+          the displaced card to the next card button
+        - Clicking a cossack card on the board with a bridge card ready does nothing
+
+    Game Over:
+        - Status label displays "Game Over!" when the board is completely filled
+
+    Command Line Arguments:
+        - Running java Wege: launches with the default 6x6 board and the 40 card deck
+        - Running java Wege 7 5: launches with a 7x5 board
+        - Running java Wege 5: launches with 6x6 board and 5 of each specialty card
+        - Running java Wege with a parameter like "abcde": outputs in the termina, "invalid arguments, defaults to 6x6 board.
+
