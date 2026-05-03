@@ -6,7 +6,9 @@ import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 import javafx.geometry.Pos;
 
 
@@ -58,14 +60,22 @@ public class Wege extends Application {
             }
         }        
         
+        // set the colors for the buttons and the background to match a forest green theme
+        WegeButton.setEmptyColor(Color.web("#3d5a3d")); // set the empty color for the buttons to match the forest green theme
+        WegeButton.setBackgroundColor(Color.web("#3d5a3d")); // card background aswell to match the forest green theme
+
         // creates the board buttons
         board = new WegeButton[rows][columns];
         GridPane gridPane = new GridPane();
+        gridPane.setHgap(4); // horizontal gap between the tiles
+        gridPane.setVgap(4);// vertical gap between the tiles
+        gridPane.setStyle("-fx-background-color: #2d1f0e; -fx-padding: 8px;");
 
         // loop to initialize the board with WegeButtons and add them to the grid pane
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < columns; c++) {
                 board[r][c] = new WegeButton(80,80);
+                board[r][c].setStyle("-fx-background-color: #3d5a3d; -fx-border-color: #5c3d1e; -fx-border-radius: 4px; -fx-background-radius: 4px;"); // style the buttons with background color, border, and rounded corners
                 gridPane.add(board[r][c], c, r);
 
                 final int row = r; //final variable to be used in the event handler
@@ -92,9 +102,10 @@ public class Wege extends Application {
             }
         }
 
+        // create the next card button and the status label, and set up the top bar of the UI
         nextCardButton = new WegeButton(80, 80); // the next card button
-        statusLabel = new Label("Land Player's Turn"); // initial status label
-
+        nextCardButton.setStyle("-fx-background-color: #3d5a3d; -fx-border-color: #7a5230; -fx-border-width: 2px; -fx-border-radius: 4px; -fx-background-radius: 4px;"); // style the next card button with background color, border, and rounded corners
+        statusLabel = new Label("Land Player's Turn"); // initial status label message
         game = new WegeGame(rows, columns, createDeck(specialtyCount));
 
         // set up the event handler for the next card button to show the next card in the deck
@@ -110,7 +121,13 @@ public class Wege extends Application {
         }); 
 
         // top bar with a label and the next card button side by side
-        HBox topBar = new HBox(20, statusLabel, nextCardButton);
+        statusLabel.setStyle("-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;"); // style the status label
+        Label nextCardLabel = new Label("Next Card:"); // label for the next card button
+        nextCardLabel.setStyle("-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;"); // style the next card label
+        VBox nextCardBox = new VBox(4, nextCardLabel, nextCardButton); // vertical box to hold the next card label and button
+        nextCardBox.setAlignment(Pos.CENTER); // center the next card box
+        HBox topBar = new HBox(20, statusLabel, nextCardBox); // horizontal box to hold the status label and the next card box
+        topBar.setStyle("-fx-background-color: #4a2e12; -fx-padding: 10px; -fx-border-color: #7a5230; -fx-border-width: 2px;"); // style the top bar with background color, padding, and border
         topBar.setAlignment(Pos.CENTER_LEFT); // align the top bar to the left
 
         // setup for the layout of the game using BorderPane
@@ -118,8 +135,10 @@ public class Wege extends Application {
         pane.setCenter(gridPane); // place the grid pane (game board) at the center of the border pane
         pane.setTop(topBar); // place the top bar at the top of the border pane
 
+        // set the background color and padding for the border pane, and create the scene with the border pane as the root node
+        pane.setStyle("-fx-background-color: #2d1f0e; -fx-padding: 16px;");
         Scene scene = new Scene(pane);
-        primaryStage.setTitle("Wege (LandLock) Game");
+        primaryStage.setTitle("Wege (The Legend of LandLock) Game");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
