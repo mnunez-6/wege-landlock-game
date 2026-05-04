@@ -8,6 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.geometry.Pos;
 
@@ -104,7 +105,7 @@ public class Wege extends Application {
 
         // create the next card button and the status label, and set up the top bar of the UI
         nextCardButton = new WegeButton(80, 80); // the next card button
-        nextCardButton.setStyle("-fx-background-color: #3d5a3d; -fx-border-color: #7a5230; -fx-border-width: 2px; -fx-border-radius: 4px; -fx-background-radius: 4px;"); // style the next card button with background color, border, and rounded corners
+        nextCardButton.setStyle("-fx-background-color: #3d5a3d; -fx-border-color: white; -fx-border-width: 2px; -fx-border-radius: 4px; -fx-background-radius: 4px;"); // style the next card button with background color, border, and rounded corners
         statusLabel = new Label("Land Player's Turn"); // initial status label message
         game = new WegeGame(rows, columns, createDeck(specialtyCount));
 
@@ -120,13 +121,28 @@ public class Wege extends Application {
             }
         }); 
 
+        Button restartButton = new Button("Restart"); // button to restart the game
+        restartButton.setStyle("-fx-background-color: #7a5230; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-border-color: white; -fx-border-width: 2px; -fx-border-radius: 4px; -fx-background-radius: 4px;"); // style the restart button with background color, text color, font, border, and rounded corners
+        restartButton.setOnAction(e -> {
+            game = new WegeGame(rows, columns, createDeck(specialtyCount)); // reset the game state by creating a new instance of the game logic class with a new deck
+            nextCardButton.setCard(null); // clear the next card button to reset the game state
+            statusLabel.setText("Land Player's Turn"); // reset the status label to the initial message
+            for (int r = 0; r < rows; r++) // loop through each row of the board
+                for (int c = 0; c < columns; c++) // loop through each column of the board
+                    board[r][c].setCard(null); // clear the card from each button on the board to reset the game state
+        }); 
+
         // top bar with a label and the next card button side by side
         statusLabel.setStyle("-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;"); // style the status label
         Label nextCardLabel = new Label("Next Card:"); // label for the next card button
         nextCardLabel.setStyle("-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;"); // style the next card label
+
+        // create a vertical box to hold the next card label and button, and style it
         VBox nextCardBox = new VBox(4, nextCardLabel, nextCardButton); // vertical box to hold the next card label and button
         nextCardBox.setAlignment(Pos.CENTER); // center the next card box
-        HBox topBar = new HBox(20, statusLabel, nextCardBox); // horizontal box to hold the status label and the next card box
+
+        // create the top bar to hold the status label and the next card box, and style it
+        HBox topBar = new HBox(20, statusLabel, nextCardBox, restartButton); // horizontal box to hold the status label and the next card box
         topBar.setStyle("-fx-background-color: #4a2e12; -fx-padding: 10px; -fx-border-color: #7a5230; -fx-border-width: 2px;"); // style the top bar with background color, padding, and border
         topBar.setAlignment(Pos.CENTER_LEFT); // align the top bar to the left
 
