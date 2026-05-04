@@ -1,5 +1,5 @@
 # Wege (The Legend of LandLock)
-A fully functional two-player board game built with Java and JavaFX initially as a freshman final project for my CSDS 132 - Programming in Java at Case Western Reserve University.
+A fully functional two-player board game built with Java and JavaFX initially as a freshman final project for my CSDS 132 - Programming in Java at Case Western Reserve University. I have since continued building on it.
 
 ## About the Game
 Wege is a tile-placing board game where two players — Land and Water — take turns placing cards on a grid. Players must match the land/water edges of adjacent cards. Special cards like bridges and cossacks add strategic depth, and gnomes can appear on cards to influence scoring.
@@ -13,6 +13,8 @@ Wege is a tile-placing board game where two players — Land and Water — take 
 - Two-player turn-based system with status display
 - Card rotation before placement
 - Customizable board size and deck via command line arguments
+- Restart button to reset the game without relaunching it
+- Themed UI with an earthy green and brown color scheme
 
 ## How to Run
 To run, you must make sure you have Java and JavaFX installed, then compile and run: 
