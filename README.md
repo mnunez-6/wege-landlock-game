@@ -16,6 +16,9 @@ Wege is a tile-placing board game where two players — Land and Water — take 
 - Restart button to reset the game without relaunching it
 - Themed UI with an earthy green and brown color scheme
 
+## Screenshots
+![Wege Gameplay](Screenshots/game-screenshot_1.png)
+
 ## How to Run
 To run, you must make sure you have Java and JavaFX installed, then compile and run: 
 
