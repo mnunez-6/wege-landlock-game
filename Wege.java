@@ -27,6 +27,7 @@ public class Wege extends Application {
     private WegeButton[][] board; // 2D array to represent the game board.
     private WegeButton nextCardButton; // button to show the next card to be played. 
     private Label statusLabel; // Label to show the current status of the game (e.g., whose turn it is, who won, etc.)
+    private Label cardsRemainingLabel; // Label to show the number of cards remaining in the deck. 
     private WegeGame game; // instance of the game logic class to manage the game state and interactions.
 
     /**
@@ -109,14 +110,19 @@ public class Wege extends Application {
         nextCardButton.setStyle("-fx-background-color: #3d5a3d; -fx-border-color: white; -fx-border-width: 2px; -fx-border-radius: 4px; -fx-background-radius: 4px;"); // style the next card button with background color, border, and rounded corners
         statusLabel = new Label("Land Player's Turn"); // initial status label message
         game = new WegeGame(rows, columns, createDeck(specialtyCount));
+        cardsRemainingLabel = new Label("Cards Remaining: " + game.getDeckSize()); // label to show the number of cards remaining in the deck
+        cardsRemainingLabel.setStyle("-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;"); // style the cards remaining label
+
 
         // set up the event handler for the next card button to show the next card in the deck
         nextCardButton.setOnAction( e -> {
             if (nextCardButton.getCard() == null) {
                 // draw a card from the deck and display it on the next card button
                 WegeCard nextCard = game.drawCard();
-                if (nextCard != null)
+                if (nextCard != null) {
                     nextCardButton.setCard(nextCard);
+                    cardsRemainingLabel.setText("Cards Remaining: " + game.getDeckSize()); // update the cards remaining label after drawing a card
+                }
             } else {
                 nextCardButton.rotate(); // rotate the card on the next card button when clicked
             }
@@ -128,6 +134,7 @@ public class Wege extends Application {
             game = new WegeGame(rows, columns, createDeck(specialtyCount)); // reset the game state by creating a new instance of the game logic class with a new deck
             nextCardButton.setCard(null); // clear the next card button to reset the game state
             statusLabel.setText("Land Player's Turn"); // reset the status label to the initial message
+            cardsRemainingLabel.setText("Cards Remaining: " + game.getDeckSize()); // reset the cards remaining label to show the full deck count
             for (int r = 0; r < rows; r++) // loop through each row of the board
                 for (int c = 0; c < columns; c++) // loop through each column of the board
                     board[r][c].setCard(null); // clear the card from each button on the board to reset the game state
@@ -143,7 +150,7 @@ public class Wege extends Application {
         nextCardBox.setAlignment(Pos.CENTER); // center the next card box
 
         // create the top bar to hold the status label and the next card box, and style it
-        HBox topBar = new HBox(20, statusLabel, nextCardBox, restartButton); // horizontal box to hold the status label and the next card box
+        HBox topBar = new HBox(20, statusLabel, nextCardBox, cardsRemainingLabel, restartButton); // horizontal box to hold the status label and the next card box
         topBar.setStyle("-fx-background-color: #4a2e12; -fx-padding: 10px; -fx-border-color: #7a5230; -fx-border-width: 2px;"); // style the top bar with background color, padding, and border
         topBar.setAlignment(Pos.CENTER_LEFT); // align the top bar to the left
 

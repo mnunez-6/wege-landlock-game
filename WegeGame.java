@@ -147,4 +147,12 @@ public class WegeGame {
         }
         return hasNeighbor; // the move is legal if there is at least one neighbor and all neighbors match
     }
+
+    /**
+     * Returns the number of cards remaining in the deck.
+     * @return the number of cards remaining in the deck.
+     */
+    public int getDeckSize() {
+        return deck.size();
+    }
 }
