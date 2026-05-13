@@ -1,5 +1,6 @@
 // importing necessary libraries for the JavaFX application
 import java.util.LinkedList;
+import java.util.Collections;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -202,6 +203,7 @@ public class Wege extends Application {
         for (int i = 0; i < plainEach; i++)
             defaultDeck.add(new WegeCard(WegeCard.CardType.WATER, false, false));
 
+        Collections.shuffle(defaultDeck); // shuffle the deck to randomize the order of the cards.
         return defaultDeck;
     }
 
